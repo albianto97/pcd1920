@@ -38,8 +38,7 @@ public class TestMulPar {
 
 		int nWorkers =  Runtime.getRuntime().availableProcessors() + 1;
 		MatMulConcurLib.init(nWorkers);
-		
-		
+				
 		Chrono cron = new Chrono();
 		cron.start();
 		Mat matC = MatMulConcurLib.matmul(matA, matB);

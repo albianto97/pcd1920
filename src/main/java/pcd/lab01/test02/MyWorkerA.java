@@ -14,12 +14,12 @@ public class MyWorkerA extends Worker {
 	}
 	
 	protected void action1(){
-		// println("a1");
+		println("a1");
 		// sleepFor(1);
 	}
 	
 	protected void action2(){
-		// println("a2");
+		println("a2");
 		// sleepFor(1);
 	}
 }

@@ -14,7 +14,7 @@ public class TestMeasuring {
 		List<Thread> tlist = new ArrayList<Thread>();
 		IntStream.rangeClosed(0, howMany-1).forEach(i -> {
 			Thread t = new Thread(() -> {
-				System.out.println("Hello from core "+i);
+				System.out.println("Hello from core " + i + " - " + Thread.currentThread().getName());
 				double waste = 0;
 				for (int j = 0; j < 100000; j++){
 					for (int k = 0; k < 1000; k++){
