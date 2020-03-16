@@ -1,12 +1,15 @@
-package pcd.lab02.lost_updates.sol1;
+package pcd.lab02.lost_updates.sol_with_synchmeth;
+
+import java.util.concurrent.Semaphore;
 
 public class TestCounterSafe {
 
 	public static void main(String[] args) throws Exception {
 		int ntimes = Integer.parseInt(args[0]);
 		SafeCounter c = new SafeCounter(0);
-		Worker w1 = new Worker(c,ntimes);
-		Worker w2 = new Worker(c,ntimes);
+		Semaphore mutex = new Semaphore(1);
+		Worker w1 = new Worker(c,ntimes,mutex);
+		Worker w2 = new Worker(c,ntimes,mutex);
 
 		Cron cron = new Cron();
 		cron.start();

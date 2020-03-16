@@ -1,4 +1,4 @@
-package pcd.lab02.lost_updates.sol1;
+package pcd.lab02.lost_updates.sol_with_synchblock;
 
 public class SafeCounter extends UnsafeCounter {
 

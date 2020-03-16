@@ -1,4 +1,4 @@
-package pcd.lab02.lost_updates.sol;
+package pcd.lab02.lost_updates.sol_with_sem;
 
 import java.util.concurrent.Semaphore;
 
@@ -19,7 +19,7 @@ public class Worker extends Thread{
 			try {
 				mutex.acquire();
 				counter.inc();
-			} catch (Exception ex) {
+			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			} finally {
 				mutex.release();

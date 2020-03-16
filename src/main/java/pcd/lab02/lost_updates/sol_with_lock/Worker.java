@@ -1,19 +1,24 @@
-package pcd.lab02.lost_updates.sol1;
+package pcd.lab02.lost_updates.sol_with_lock;
 
+import java.util.concurrent.locks.Lock;
 
 public class Worker extends Thread{
 	
 	private UnsafeCounter counter;
 	private int ntimes;
+	private Lock lock;
 	
-	public Worker(UnsafeCounter c, int ntimes){
+	public Worker(UnsafeCounter c, int ntimes, Lock lock){
 		counter = c;
 		this.ntimes = ntimes;
+		this.lock = lock;
 	}
 	
 	public void run(){
 		for (int i = 0; i < ntimes; i++){
+			lock.lock();
 			counter.inc();
+			lock.unlock();
 		}
 	}
 }
