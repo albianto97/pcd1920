@@ -18,6 +18,6 @@ public class TestCounter {
 		w1.join();
 		w2.join();
 		cron.stop();
-		System.out.println("Counter final value: "+c.getValue()+" in "+cron.getTime()+"ms.");
+		System.out.println("Counter final value: " + c.getValue() + " in " + cron.getTime() + "ms.");
 	}
 }

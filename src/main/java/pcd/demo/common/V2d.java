@@ -20,8 +20,8 @@ public class V2d implements java.io.Serializable {
     public double x,y;
 
     public V2d(double x,double y){
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
 
     public V2d sum(V2d v){

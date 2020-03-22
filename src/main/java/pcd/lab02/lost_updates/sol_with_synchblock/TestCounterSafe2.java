@@ -1,14 +1,14 @@
 package pcd.lab02.lost_updates.sol_with_synchblock;
 
-public class TestCounterSafe {
+public class TestCounterSafe2 {
 
 	public static void main(String[] args) throws Exception {
 		int ntimes = 1000000; // Integer.parseInt(args[0]);
 		
-		SafeCounter c = new SafeCounter(0);
+		UnsafeCounter c = new UnsafeCounter(0);
 		
-		Worker w1 = new Worker(c,ntimes);
-		Worker w2 = new Worker(c,ntimes);
+		Worker2 w1 = new Worker2(c,ntimes);
+		Worker2 w2 = new Worker2(c,ntimes);
 
 		Cron cron = new Cron();
 		cron.start();
