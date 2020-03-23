@@ -81,18 +81,14 @@ public class MandelbrotView extends JFrame implements ActionListener {
     }
 	
 	public void setUpdated(final MandelbrotSet set){
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run(){
+		SwingUtilities.invokeLater(() -> {
 				setPanel.updateImage(set.getImage());
-			}
 		});
 	}
 	
 	public void changeState(final String s){		
-		SwingUtilities.invokeLater(new Runnable(){
-			public void run(){
+		SwingUtilities.invokeLater(() -> {
 				state.setText(s);
-			}
 		});
 	}
 

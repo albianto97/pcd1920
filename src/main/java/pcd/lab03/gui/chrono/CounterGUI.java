@@ -79,13 +79,13 @@ public class CounterGUI extends JFrame
 	
 	public void counterChanged(final CounterEvent ev){
 		SwingUtilities.invokeLater(()-> {
-				display.setText(""+ ev.getValue());
+			display.setText(""+ ev.getValue());
 		});
 	}
 	
 	public void display() {
         javax.swing.SwingUtilities.invokeLater(() -> {
-        		this.setVisible(true);
+        	this.setVisible(true);
         });
     }
 }

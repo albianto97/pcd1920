@@ -23,8 +23,12 @@ public class TestJFXThread extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent event) {
-            		whoAmI("handle");
+            	whoAmI("handle");
                 System.out.println("Pressed!");
+    	  		try {
+    	  			Thread.sleep(10000);
+    	  		} catch (Exception ex) {};
+    	    	// while (true){}
             }
         });
         

@@ -14,22 +14,22 @@ public class Counter {
 		listeners = new ArrayList<CounterEventListener>();
 	}
 	
-	public void inc(){
+	public synchronized void inc(){
 		cont++;
 		System.out.println("count "+cont);
 		notifyEvent(new CounterEvent(cont));
 	}
 	
-	public void reset(){
+	public synchronized void reset(){
 		cont = base;
 		notifyEvent(new CounterEvent(cont));
 	}
 	
-	public int getValue(){
+	public synchronized int getValue(){
 		return cont;
 	}
 	
-	public void addListener(CounterEventListener l){
+	public synchronized void addListener(CounterEventListener l){
 		listeners.add(l);
 	}
 	

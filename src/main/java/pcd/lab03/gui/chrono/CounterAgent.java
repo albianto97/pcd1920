@@ -1,6 +1,6 @@
 package pcd.lab03.gui.chrono;
 
-public class CounterAgent extends Thread{
+public class CounterAgent extends Thread {
 	private Counter counter;
 	private volatile boolean stopped;
 	
