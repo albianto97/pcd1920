@@ -20,6 +20,7 @@ public class Simulator {
         bounds = new Boundary(-1.0,-1.0,1.0,1.0);
 
         /* test with 3 big bodies */
+        
         /*
         bodies = new ArrayList<Body>();
         bodies.add(new Body(new Position(-0.5,0), new Velocity(0.005,0), 0.05));
@@ -27,11 +28,11 @@ public class Simulator {
         bodies.add(new Body(new Position(0.07,-0.1), new Velocity(0,0), 0.05));
         */
         
-        /* test with 1000 small bodies */
-        
+        /* test with 100 small bodies */
+       
         Random rand = new Random(System.currentTimeMillis());
         bodies = new ArrayList<Body>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             double x = bounds.getX0() + rand.nextDouble()*(bounds.getX1() - bounds.getX0());
             double y = bounds.getX0() + rand.nextDouble()*(bounds.getX1() - bounds.getX0());
             double dx = -1 + rand.nextDouble()*2;
@@ -50,7 +51,7 @@ public class Simulator {
         double dt = 0.1;
         
         long iter = 0; 
-        long nIterations = 10000;
+        long nIterations = 10000; /* Nsteps */
         
         /* simulation loop */
         

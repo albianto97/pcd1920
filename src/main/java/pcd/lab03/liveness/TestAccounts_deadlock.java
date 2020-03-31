@@ -49,7 +49,7 @@ public class TestAccounts_deadlock {
 	public static void main(String[] args) {
 		
 		for (int i = 0; i < accounts.length; i++){
-			accounts[i] = new Account(1000);
+			accounts[i] = new Account(10);
 		}
 		
 		for (int i = 0; i < NUM_THREADS; i++){

@@ -10,7 +10,7 @@ public class TestLatch {
 		int nThreadA = 10;
 		int nThreadB = 10;
 		
-		Latch latch = new FakeLatch(nThreadB);
+		Latch latch = new LatchImpl2(nThreadB);
 		
 		List<ThreadA> threadsAlist = new ArrayList<ThreadA>();
 		for (int i = 0; i < nThreadA; i++) {

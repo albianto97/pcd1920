@@ -15,7 +15,7 @@ public class ThreadA extends Thread {
 		try {
 			log("waiting opening.");
 			latch.await();
-			log("opened.");
+			log("opened."); // 
 		} catch (InterruptedException ex) {
 			log("Interrupted!");
 		}

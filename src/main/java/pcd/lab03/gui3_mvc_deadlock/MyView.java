@@ -60,6 +60,10 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 	public void modelUpdated(MyModel model) {
 		try {
 			System.out.println("[View] model updated => updating the view");
+			/*
+			SwingUtilities.invokeLater(() -> {
+				state.setText("state: " + model.getState());
+			});*/
 			SwingUtilities.invokeAndWait(() -> {
 				state.setText("state: " + model.getState());
 			});
