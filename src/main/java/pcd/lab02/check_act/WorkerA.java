@@ -14,7 +14,7 @@ public class WorkerA extends Thread{
 		try {
 			for (int i = 0; i < ntimes; i++){
 				if (counter.getValue() > 0){
-						counter.dec();
+					counter.dec();
 				}
 			}
 		} catch (Exception ex){
