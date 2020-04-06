@@ -6,7 +6,7 @@ public class Main {
 
 		double a = 0;
 		double b = 3;		
-		int nTasks = 1000;
+		int nTasks = 100;
 		int poolSize = Runtime.getRuntime().availableProcessors() + 1;
 		
 		QuadratureService service = new QuadratureService(nTasks, poolSize);

@@ -31,7 +31,7 @@ public class QuadratureService extends Thread {
 		}				
 
 	    double sum = 0;
-	    for (Future<Double> future : resultSet) {
+	    for (Future<Double> future: resultSet) {
 	    	try {
 	    		sum += future.get();
 	    	} catch (Exception ex){

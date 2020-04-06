@@ -19,11 +19,11 @@ public class MatMulConcurLib {
 	}
 
 	private MatMulConcurLib() {
-		exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);		
 	}
 	
 	public Mat matmul(Mat matA, Mat matB) throws MatMulException {
 		Mat matC = new Mat(matA.getNRows(), matB.getNColumns());
+		exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);		
 		try {
 			for (int i = 0; i < matA.getNRows(); i++){
 				for (int j = 0; j < matB.getNColumns(); j++){
