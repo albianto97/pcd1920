@@ -10,10 +10,10 @@ public class CollisionToCheck {
 	}
 	
 	public int getFirst() {
-		return first;
+		return first < second ? first : second;
 	}
 	
 	public int getSecond() {
-		return second;
+		return first < second ? second : first;
 	}
 }

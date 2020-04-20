@@ -57,8 +57,20 @@ public class CollisionChecker extends Thread {
 
 	        	for (CollisionToCheck col: collisionsToBeSolved) {
 			    	Body b1 = bodies.get(col.getFirst());
-			        Body b2 = bodies.get(col.getSecond());
-	        		Body.solveCollision(b1, b2);
+			        Body b2 = bodies.get(col.getSecond());			        
+			        /* 
+			         * Since bodies can be shared among different collision checkers
+			         * we need to take locks to avoid possible races, in an order that
+			         * avoid deadlocks.
+			         */
+			        synchronized (b1) {
+			        	synchronized (b2) {
+					        /* if the bodies still collide */
+			        		if (b1.collideWith(b2)) {
+					        	Body.solveCollision(b1, b2);
+					        }
+			        	}
+			        }
 	        	}
 	        
         		log(" - collision solved: " + collisionsToBeSolved.size());
