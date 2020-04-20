@@ -1,35 +1,24 @@
-package pcd.ass01.seq;
+package pcd.ass01.sol.seq;
 
 import java.util.*;
 
-public class Simulator {
+public class Simulation {
         
-	private SimulationViewer viewer;
-
 	/* bodies in the field */ 
 	ArrayList<Body> bodies;
 	
 	/* boundary of the field */
 	private Boundary bounds;
+	private int nIterations;
+	private SimulationView viewer;
 	
-    public Simulator(SimulationViewer viewer){
-    	this.viewer = viewer;
-
+    public Simulation(int nBodies, int nIterations, SimulationView viewer){
     	/* initializing boundary and bodies */
+    	this.viewer = viewer;
     	
         bounds = new Boundary(-1.0,-1.0,1.0,1.0);
-
-        /* test with 3 big bodies */
+        this.nIterations = nIterations;
         
-        /*
-        bodies = new ArrayList<Body>();
-        bodies.add(new Body(new Position(-0.5,0), new Velocity(0.005,0), 0.05));
-        bodies.add(new Body(new Position(0,0.05), new Velocity(0,0), 0.05));
-        bodies.add(new Body(new Position(0.07,-0.1), new Velocity(0,0), 0.05));
-        */
-        
-        /* test with 100 small bodies */
-        int nBodies = 1000;
         Random rand = new Random(System.currentTimeMillis());
         bodies = new ArrayList<Body>();
         for (int i = 0; i < nBodies; i++) {
@@ -51,18 +40,29 @@ public class Simulator {
         double dt = 0.2;
         
         long iter = 0; 
-        long nIterations = 5000; /* Nsteps */
+        
+		System.out.println("Started - " + bodies.size() + " bodies - " + nIterations + " iterations.");
         
         /* simulation loop */
-        
+
+		long dt21 = 0;
+		long dt32 = 0;
+		long dt43 = 0;
+		long t0 = System.currentTimeMillis();
         while (iter < nIterations){
 	        
         	/* compute bodies new pos */
 
+        	long t1 = System.currentTimeMillis();
+        	
         	for (Body b: bodies) {
         		b.updatePos(dt);
 		    }
-		            
+		        
+        	long t2 = System.currentTimeMillis();
+        	
+        	dt21 += t2 - t1;
+        	
         	/* check collisions */
         	
 		    for (int i = 0; i < bodies.size() - 1; i++) {
@@ -80,17 +80,26 @@ public class Simulator {
 		    for (Body b: bodies) {
 		    	b.checkAndSolveBoundaryCollision(bounds);
 		    }
-		    
+		
+		    long t3 = System.currentTimeMillis();
+        	
+		    dt32 += t3 - t2;
+
 		    /* update virtual time */
 		    
 		    vt = vt + dt;
 		    iter++;
 
 		    /* display current stage */
-		    
-        	viewer.display(bodies, vt, iter);
-        
+		    if (viewer != null) {
+		    	viewer.display(bodies, vt, iter);
+		    }        
         }
+		long t1 = System.currentTimeMillis();
+
+		System.out.println("Time elapsed: " + (t1 - t0) + "ms");
+		System.out.println("dt21 - " + dt21 + "ms - average: " + ((double)dt21)/nIterations + "ms per iteration");
+		System.out.println("dt32 - " + dt32 + "ms - average: " + ((double)dt32)/nIterations + "ms per iteration");
     }
 
 }
