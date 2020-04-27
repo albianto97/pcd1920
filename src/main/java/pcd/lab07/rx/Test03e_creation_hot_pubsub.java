@@ -1,16 +1,14 @@
 package pcd.lab07.rx;
 
-import java.util.stream.IntStream;
-
-import io.reactivex.rxjava3.core.BackpressureStrategy;
-import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class Test03e_creation_hot_pubsub {
 
 	public static void main(String[] args) throws Exception {
 
-		log("creating hot observable.");
+		System.out.println("\n=== TEST Hot streams with pubsub ===\n");
+
+		/* Subjects: bridges functioning both as observer and observable */ 
 
 		PublishSubject<Integer> source = PublishSubject.<Integer>create();
 		 

@@ -1,66 +1,62 @@
 package pcd.lab07.rx;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.rxjava3.core.*;
 import io.reactivex.rxjava3.flowables.ConnectableFlowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class Test05_backpressure {
+public class Test06c_backpressure_strategy_drop {
 
 	public static void main(String[] args) throws Exception {
 
-		log("creating hot observable.");
+		System.out.println("\n=== TEST backpressure | strategy BUFFER ===\n");
 
+		/* generator with period 5ms - backpressure strategy set: DROPPING LATEST */
 		Flowable<Long> source = genHotStream(5);
 
-		log("subscribing .");
+		log("subscribing.");
 
-		source.onBackpressureBuffer(5, () -> {
-			log("HELP!");
+		/* never generating a MissingBackpressureException => elements are dropped */
+		
+		source
+		.onBackpressureDrop(v  -> {
+			log("DROPPING: " + v);
 		})
-				// .onBackpressureBuffer(5, () -> { log("HELP!"); },
-				// BackpressureOverflowStrategy.DROP_OLDEST)
-				.observeOn(Schedulers.computation())
-				.subscribe(Test05_backpressure::compute, Throwable::printStackTrace);
+		.observeOn(Schedulers.computation())
+		.subscribe(v -> {
+			log("consuming " + v);
+			Thread.sleep(100);
+		}, error -> {
+			log("ERROR: " + error);
+		});
 
-		Thread.sleep(1000_000);
+		Thread.sleep(1000);
 	}
 
-	private static Flowable<Long> genHotStream(long delay) {
+	private static Flowable<Long> genHotStream(int delay) {
 		Flowable<Long> source = Flowable.create(emitter -> {
 			new Thread(() -> {
 				long i = 0;
 				try {
 					while (true) {
-						if (i % 10 == 0) {
+						if (i % 1000 == 0) {
 							log("emitting: " + i);
 						}
 						emitter.onNext(i);
 						i++;
-						if (delay > 0) {
-							try {
-								Thread.sleep(delay);
-							} catch (Exception ex) {
-							}
-						}
+						Thread.sleep(delay);
 					}
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					log("exit");
 				}
 			}).start();
-		}, BackpressureStrategy.BUFFER);
+		}, BackpressureStrategy.LATEST);
 
 		ConnectableFlowable<Long> hotObservable = source.publish();
 		hotObservable.connect();
 		return hotObservable;
-	}
-
-	private static void compute(Long v) {
-		try {
-			log("compute v: " + v);
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	static private void log(String msg) {

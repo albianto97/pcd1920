@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.subjects.PublishSubject;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
-public class Test07_swing_pubsub {	
+public class Test04_swing_pubsub {	
 
 	static class MyFrame extends JFrame {	
 

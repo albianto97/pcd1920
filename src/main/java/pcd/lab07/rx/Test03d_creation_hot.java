@@ -7,7 +7,7 @@ public class Test03d_creation_hot {
 
 	public static void main(String[] args) throws Exception {
 
-		log("creating the source.");
+		System.out.println("\n=== TEST Hot streams  ===\n");
 		
 		Flowable<Integer> source = Flowable.create(emitter -> {		     
 			new Thread(() -> {
@@ -27,14 +27,18 @@ public class Test03d_creation_hot {
 		ConnectableFlowable<Integer> hotObservable = source.publish();
 		hotObservable.connect();
 	
+		/* give time for producing some data before any subscription */
 		Thread.sleep(500);
+		
 		log("Subscribing A.");
 		
 		hotObservable.subscribe((s) -> {
 			log("subscriber A: "+s); 
 		});	
 		
+		/* give time for producing some data before second subscriber */
 		Thread.sleep(500);
+		
 		log("Subscribing B.");
 		
 		hotObservable.subscribe((s) -> {
@@ -42,6 +46,8 @@ public class Test03d_creation_hot {
 		});	
 		
 		log("Done.");
+		
+		Thread.sleep(10_000);
 
 	}
 	
