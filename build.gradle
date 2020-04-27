@@ -6,8 +6,13 @@
  * user guide available at https://docs.gradle.org/3.5/userguide/java_library_plugin.html
  */
 
+plugins {
+  id 'application'
+  id 'org.openjfx.javafxplugin' version '0.0.8'
+}
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -16,11 +21,18 @@ repositories {
     jcenter()
 }
 
+javafx {
+    version = "14"
+    modules = [ 'javafx.controls' ]
+}
+
 dependencies {
 	// vert.x
   	implementation "io.vertx:vertx-core:3.9.0"
   	implementation "io.vertx:vertx-sync:3.9.0"
   	implementation "io.vertx:vertx-web:3.9.0"
+
+	implementation "io.reactivex.rxjava3:rxjava:3.0.2"
 
 }
 
