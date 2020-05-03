@@ -8,7 +8,7 @@
 
 plugins {
   id 'application'
-  id 'org.openjfx.javafxplugin' version '0.0.8'
+  //id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
@@ -21,10 +21,10 @@ repositories {
     jcenter()
 }
 
-javafx {
+/*javafx {
     version = "14"
     modules = [ 'javafx.controls' ]
-}
+}*/
 
 dependencies {
 	// vert.x
@@ -33,6 +33,7 @@ dependencies {
   	implementation "io.vertx:vertx-web:3.9.0"
 
 	implementation "io.reactivex.rxjava3:rxjava:3.0.2"
-
+	
+	implementation "com.typesafe.akka:akka-actor_2.13:2.6.5"
 }
 
