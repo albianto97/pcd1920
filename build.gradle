@@ -35,5 +35,15 @@ dependencies {
 	implementation "io.reactivex.rxjava3:rxjava:3.0.2"
 	
 	implementation "com.typesafe.akka:akka-actor_2.13:2.6.5"
+	implementation "com.typesafe.akka:akka-actor-typed_2.13:2.6.5"
+	
+    implementation "com.typesafe.akka:akka-remote_2.13:2.6.5"
+  	implementation "com.typesafe.akka:akka-cluster_2.13:2.6.5"
+  	implementation "io.aeron:aeron-driver:1.27.0"
+  	implementation "io.aeron:aeron-client:1.27.0"
+	implementation "org.slf4j:slf4j-simple:1.7.30"
+	
+  	implementation "com.typesafe.akka:akka-serialization-jackson_2.13:2.6.5"
+
 }
 
