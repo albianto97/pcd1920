@@ -28,8 +28,6 @@ public class PuzzleBoard extends JFrame {
 	
 	private SelectionManager selectionManager = new SelectionManager();
 	
-    //private JPanel board;
-
     public PuzzleBoard(final int rows, final int columns, final String imagePath) {
     	this.rows = rows;
 		this.columns = columns;
