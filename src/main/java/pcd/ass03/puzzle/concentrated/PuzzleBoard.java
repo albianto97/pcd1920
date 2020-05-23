@@ -44,10 +44,7 @@ public class PuzzleBoard extends JFrame {
         getContentPane().add(board, BorderLayout.CENTER);
         
         createTiles(imagePath);
-        
         paintPuzzle(board);
-        
-        
     }
 
     
