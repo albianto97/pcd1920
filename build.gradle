@@ -9,7 +9,11 @@
 plugins {
   id 'application'
   //id 'org.openjfx.javafxplugin' version '0.0.8'
+  id 'java'
+  id 'org.springframework.boot' version '2.0.5.RELEASE'
+  id 'io.spring.dependency-management' version '1.0.7.RELEASE'
 }
+
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
 
@@ -28,22 +32,42 @@ repositories {
 
 dependencies {
 	// vert.x
-  	implementation "io.vertx:vertx-core:3.9.0"
-  	implementation "io.vertx:vertx-sync:3.9.0"
-  	implementation "io.vertx:vertx-web:3.9.0"
+  	
+  	
+  	compile "io.vertx:vertx-core:3.9.1"
+  	compile "io.vertx:vertx-sync:3.9.1"
+  	compile "io.vertx:vertx-web:3.9.1"
+  	compile "io.vertx:vertx-web-client:3.9.1"
 
-	implementation "io.reactivex.rxjava3:rxjava:3.0.2"
+	compile "io.reactivex.rxjava3:rxjava:3.0.2"
 	
-	implementation "com.typesafe.akka:akka-actor_2.13:2.6.5"
-	implementation "com.typesafe.akka:akka-actor-typed_2.13:2.6.5"
 	
-    implementation "com.typesafe.akka:akka-remote_2.13:2.6.5"
-  	implementation "com.typesafe.akka:akka-cluster_2.13:2.6.5"
-  	implementation "io.aeron:aeron-driver:1.27.0"
-  	implementation "io.aeron:aeron-client:1.27.0"
-	implementation "org.slf4j:slf4j-simple:1.7.30"
+	compile "com.typesafe.akka:akka-actor_2.13:2.6.5"
+	compile "com.typesafe.akka:akka-actor-typed_2.13:2.6.5"
 	
-  	implementation "com.typesafe.akka:akka-serialization-jackson_2.13:2.6.5"
+    compile "com.typesafe.akka:akka-remote_2.13:2.6.5"
+  	compile "com.typesafe.akka:akka-cluster_2.13:2.6.5"
+  	compile "io.aeron:aeron-driver:1.27.0"
+  	compile "io.aeron:aeron-client:1.27.0"
+	// compile "org.slf4j:slf4j-simple:1.7.30"
+	
+  	compile "com.typesafe.akka:akka-serialization-jackson_2.13:2.6.5"
+	
+	compile 'com.rabbitmq:amqp-client:5.9.0'
+	
+    compile 'org.springframework.boot:spring-boot-dependencies:2.0.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    components {
+        withModule('org.springframework:spring-beans') {
+            allVariants {
+                withDependencyConstraints {
+                    // Need to patch constraints because snakeyaml is an optional dependency
+                    it.findAll { it.name == 'snakeyaml' }.each { it.version { strictly '1.19' } }
+                }
+            }
+        }
+    }
 }
-
