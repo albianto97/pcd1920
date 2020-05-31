@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My PhoneBook</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container" role="main">
+    <div class="jumbotron">
+        <h1>My PhoneBook</h1>
+		<p> An example of a microservice definition and deployment using Vert.x and Docker</p>
+    </div>
+    <div class="page-header">	
+        <button class="pull-right btn btn-primary user-add" data-action="add" data-toggle="modal" data-target="#userModal">
+            <span class="glyphicon glyphicon-plus"></span> Add a new User
+        </button>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="content">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        load();
+        initModal();
+    });
+
+    function create(id, description, phone) {
+		$.post("/api/phonebook", JSON.stringify({id: id, description:description, phone:phone}), function () {
+            load();
+        }, "json");
+    }
+
+    function remove(id) {
+        $.ajax({
+            method: "DELETE",
+            url: "/api/phonebook/" + id
+        }).done(function () {
+            load();
+        });
+    }
+
+    function update(id, phone) {
+        $.ajax({
+            method: "PUT",
+            url: "/api/phonebook/" + id,
+            data: JSON.stringify({phone: phone})
+        }).done(function () {
+            load();
+        });
+    }
+
+    function load() {
+        $("#content").children().remove();
+		
+        $.getJSON("/api/phonebook", function (data) {
+            $.each(data, function (key, val) {
+                $("<tr><td>" + val.id + "</td><td>" + val.description + "</td><td>" + val.phone + "</td>" +
+                        "<td>" +
+                        "<button data-action='edit' class='btn btn-primary btn-sm user-edit' " +
+                        "data-toggle='modal' " +
+                        "data-target='#userModal' " +
+                        "data-id='" + val.id + "' " +
+                        "data-description='" + val.description + "' " +
+                        "data-phone='" + val.phone + "'>" +
+                        "<span class='glyphicon glyphicon-pencil'></span>" +
+                        "</button>" +
+                        "&nbsp;" +
+                        "<button class='btn btn-danger btn-sm user-delete' data-id='" + val.id + "'>" +
+                        "   <span class='glyphicon glyphicon-trash'></span>" +
+                        "</button>" +
+                        "</td>" +
+                        "</tr>").appendTo("#content");
+            });
+            initCallbacks();
+        });
+    }
+
+    function initCallbacks() {
+        $(".user-delete").unbind().click(function() {
+           var id = $(this).data("id");
+           remove(id);
+        });
+    }
+
+    function initModal() {
+        $("#userModal").on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var action = button.data('action');
+            var id = button.data('id');
+            var userAction = $("#userAction");
+            userAction.unbind();
+            var modal = $(this);
+            if (action === "add") {
+                modal.find('.modal-title').text("Add a new User");
+                modal.find('#user-id').val("");
+                modal.find('#user-description').val("");
+				modal.find('#user-phone').val("");
+                userAction.click(function () {
+                    create($("#user-id").val(), $("#user-description").val(), $("#user-phone").val());
+                    $('#userModal').modal('toggle');
+                });
+            } else {
+                modal.find('.modal-title').text("Edit an existing user");
+                modal.find('#user-id').val(button.data("id"));
+                modal.find('#user-description').val(button.data("description"));
+				modal.find('#user-phone').val(button.data("phone"));
+                userAction.click(function () {
+                    update(id, $("#user-phone").val());
+                    $('#userModal').modal('toggle');
+                });
+            }
+        })
+    }
+</script>
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title" id="userModalTitle">Add a new User</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="user-id" class="control-label">Id:</label>
+                        <input type="text" class="form-control" id="user-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-description" class="control-label">Description:</label>
+                        <input type="text" class="form-control" id="user-description">
+                    </div>
+					<div class="form-group">
+                        <label for="user-phone" class="control-label">Phone:</label>
+                        <input type="text" class="form-control" id="user-phone">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="userAction" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
