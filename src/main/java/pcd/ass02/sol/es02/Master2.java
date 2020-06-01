@@ -12,7 +12,7 @@ import pcd.ass02.sol.common.Concept;
 import pcd.ass02.sol.common.ConceptGraph;
 import pcd.ass02.sol.common.View;
 
-public class Master extends AbstractVerticle {
+public class Master2 extends AbstractVerticle {
 
 	private String rootConcept;
 	private ConceptGraph conceptGraph;
@@ -25,7 +25,7 @@ public class Master extends AbstractVerticle {
 	private HashMap<String, Integer> visited;
 	private static final Logger logger = Logger.getLogger("[master]");
 
-	public Master(Wikipedia wiki, ConceptGraph graph, View view) {
+	public Master2(Wikipedia wiki, ConceptGraph graph, View view) {
 		this.wiki = wiki;
 		this.view = view;
 		this.conceptGraph = graph;
@@ -78,16 +78,22 @@ public class Master extends AbstractVerticle {
 	private Future<Void> buildAndRefresh(String concept, int level) {
 		Promise<Void> promise = Promise.promise();
 
+		boolean toBeFetched = false;
 		boolean toBeExplored = false;
 		Integer prev = visited.get(concept);
-		if (prev == null || prev > level) {
+		if (prev == null) {
+			toBeFetched = true;
 			toBeExplored = true;
 			visited.put(concept, level);
+		} else if (prev > level) {
+			visited.put(concept, level);
+			toBeExplored = true;
 		}
 		
 		if (!toBeExplored || stopped) {
 			promise.complete(null);
 		} else {
+			if (toBeFetched) {
 				wiki
 				.getConcept(concept)
 				.onSuccess((Concept co) -> {
@@ -122,6 +128,28 @@ public class Master extends AbstractVerticle {
 						promise.complete(null);
 					}
 				});
+			} else {
+				Optional<Concept> co = conceptGraph.getConcept(concept);
+				if (level < conceptGraph.getMaxLevel()) {
+					List<String> linked = co.get().getLinkedConcepts();
+					LinkedList<String> completed = new LinkedList<String>();
+					for (String linkedConcept : linked) {
+						if (stopped) {
+							promise.complete();
+							break;
+						}
+						buildAndRefresh(linkedConcept, level + 1)
+						.onSuccess(res -> {
+							completed.add(linkedConcept);
+							if (completed.size() == linked.size()) {
+								promise.complete();
+							}
+						});
+					}
+				} else {
+					promise.complete();
+				}
+			}
 		}
 		return promise.future();
 	}
