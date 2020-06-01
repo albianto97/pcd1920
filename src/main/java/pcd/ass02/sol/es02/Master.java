@@ -80,6 +80,11 @@ public class Master extends AbstractVerticle {
 
 		boolean toBeExplored = false;
 		Integer prev = visited.get(concept);
+
+		/* 
+		 * Explore the concept if concept has not already been explored or 
+		 * already explored but at different (greater) level from the root 
+		 */
 		if (prev == null || prev > level) {
 			toBeExplored = true;
 			visited.put(concept, level);

@@ -12,7 +12,7 @@ public class Master extends Thread {
 	
     private final ForkJoinPool exec;
 	private ScheduledExecutorService timerExec;
-	private static final long PERIOD = 100000; /* 10 secs */ 
+	private static final long PERIOD = 10000; /* 10 secs */ 
 
 	private String rootConcept;
 	private ConceptGraph conceptGraph;

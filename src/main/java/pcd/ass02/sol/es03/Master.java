@@ -60,7 +60,12 @@ public class Master extends Thread {
 	private Flowable<Concept> buildConceptFlow(String concept, int level){
 		if (stopped) {
 			return Flowable.empty();
-		}		
+		}	
+		
+		/* 
+		 * Explore the concept if concept has not already been explored or 
+		 * already explored but at different (greater) level from the root 
+		 */
 		boolean toBeExplored = false;
 		synchronized(visited) {
 			Integer prev = visited.get(concept);

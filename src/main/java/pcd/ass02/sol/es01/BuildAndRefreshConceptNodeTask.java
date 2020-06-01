@@ -33,37 +33,26 @@ public class BuildAndRefreshConceptNodeTask extends RecursiveTask<Void> {
 			return null;
 		}
 		
-		/* check if the concept has been already visited */
+		/* 
+		 * Explore the concept if concept has not already been explored or 
+		 * already explored but at different (greater) level from the root 
+		 */
 		
-		boolean toBeFetched = false;
 		boolean toBeExplored = false;
 		synchronized(visited) {
 			Integer prev = visited.get(concept);
-			if (prev == null) {			/* concept not already present */
-				toBeFetched = true;
+			if (prev == null ||  (prev > level)) {		
 				toBeExplored = true;
 				visited.put(concept, level);
-			} else if (prev > level) {	/* concept present, but need to to be explored again */ 
-				visited.put(concept, level);
-				toBeExplored = true;
 			}
 		}
 
 		if (toBeExplored) {
-				Concept co = null;
-				if (toBeFetched) {
-					Optional<Concept> con = wiki.getConcept(concept);
-					co = con.get();
-				} else {
-					Optional<Concept> con = conceptGraph.getConcept(concept);
-					co = con.get();
-				}
-
-				/* fetch the concept from wiki if needed */
-				if (co != null) {
-					boolean added = conceptGraph.addConceptIfNotAlreadyPresent(co);
+				Optional<Concept> con = wiki.getConcept(concept);				
+				if (con.isPresent()) {
+					boolean added = conceptGraph.addConceptIfNotAlreadyPresent(con.get());
 					if (added) {
-						logger.info("new concept added: " + concept + " - " + co.getLinkedConcepts().size());
+						logger.info("new concept added: " + concept + " - " + con.get().getLinkedConcepts().size());
 					} else if (!added) {
 						logger.info("concept already present: " + concept);
 					}
@@ -72,7 +61,7 @@ public class BuildAndRefreshConceptNodeTask extends RecursiveTask<Void> {
 					
 				if (level < conceptGraph.getMaxLevel()) {
 					List<BuildAndRefreshConceptNodeTask> tasks = new LinkedList<BuildAndRefreshConceptNodeTask>();
-					for (String linkedConcept : co.getLinkedConcepts()) {
+					for (String linkedConcept : con.get().getLinkedConcepts()) {
 						if (stopFlag.isSet()) {
 							return null;
 						}
