@@ -64,13 +64,9 @@ public class PhoneBookService extends AbstractVerticle {
 		router.put("/api/phonebook/:id").handler(this::handleUpdateUserPhone);
 		router.delete("/api/phonebook/:id").handler(this::handleDeleteUser);
 
-		//System.out.println(getClass().getClassLoader().getResource("webroot").toString());
-		
 		router.route().handler(StaticHandler.create().setWebRoot("webroot/lab12").setCachingEnabled(false));
 		
 		getVertx().createHttpServer().requestHandler(router).listen(localPort);
-		
-		
 	}
 
 	private void handleGetAll(final RoutingContext routingContext) {
