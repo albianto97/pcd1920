@@ -78,6 +78,11 @@ public class Master extends AbstractVerticle {
 	private Future<Void> buildAndRefresh(String concept, int level) {
 		Promise<Void> promise = Promise.promise();
 
+		if (stopped) {
+			promise.complete();
+			return promise.future();
+		}
+
 		boolean toBeExplored = false;
 		Integer prev = visited.get(concept);
 
