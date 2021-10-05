@@ -12,7 +12,7 @@ public class Main {
 
     	/* default values */
     	
-    	int nBodies = 1000;
+    	int nBodies = 100;
     	int nSteps = 5000;
     	int nWorkers = Runtime.getRuntime().availableProcessors() + 1;
 

@@ -1,6 +1,7 @@
 package pcd.ass03.puzzle.concentrated;
 
-public class Application {
+public class
+Application {
 
 	public static void main(final String[] args) {
 		final int n = 3;

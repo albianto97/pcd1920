@@ -11,6 +11,9 @@ public class TestExecDeadlock {
 
 		int nTasks = 100; 
 		int nThreads = Runtime.getRuntime().availableProcessors() + 1;
+
+		// processori +1 nel mio pc sono 2 + 1
+		System.out.println(nThreads);
 		
 		ExecutorService exec = Executors.newFixedThreadPool(nThreads);
 		CyclicBarrier barrier = new CyclicBarrier(nTasks);

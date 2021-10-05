@@ -12,7 +12,10 @@ public class TestMeasuring {
 		long t0 = System.currentTimeMillis();
 		
 		List<Thread> tlist = new ArrayList<Thread>();
-		IntStream.rangeClosed(0, howMany-1).forEach(i -> {
+		/*tlist.forEach(tt -> {
+				System.out.println("tlist" + tt);
+		});*/ // NON stampa perchè questa è solo la creazione
+		IntStream.rangeClosed(0, howMany-1).forEach(i -> {  //Ho 12 processori - 1
 			Thread t = new Thread(() -> {
 				System.out.println("Hello from core " + i + " - " + Thread.currentThread().getName());
 				double waste = 0;
@@ -28,6 +31,7 @@ public class TestMeasuring {
 		
 		tlist.stream().forEach(t -> {
 			try {
+				System.out.println(t);
 				t.join();
 			} catch (Exception ex){
 			}

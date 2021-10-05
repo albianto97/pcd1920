@@ -13,8 +13,8 @@ public class Worker2 extends Thread {
 	
 	public void run(){
 		for (int i = 0; i < ntimes; i++){
-			synchronized (counter) {
-				counter.inc();
+			synchronized (counter) { 	//SE COMMENTIAMO QUESTO SBAGLIA IL
+				counter.inc();			//IL NUMERO DI ITERAZIONI
 			}
 		}
 	}

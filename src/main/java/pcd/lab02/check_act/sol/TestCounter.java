@@ -12,7 +12,7 @@ public class TestCounter {
 
 	public static void main(String[] args) throws Exception {
 		int ntimes = 10000;
-		Counter c = new Counter(0,1);
+		Counter c = new Counter(0,1);  //Valori rimangono tra 0 e 1
 		Semaphore mutex = new Semaphore(1,true);
 		WorkerA w1a = new WorkerA(c,ntimes, mutex);
 		WorkerA w1b = new WorkerA(c,ntimes, mutex);
@@ -26,6 +26,6 @@ public class TestCounter {
 		w1b.join();
 		w2a.join();
 		w2b.join();
-		System.out.println("Counter final value: "+c.getValue());
+		System.out.println("Counter final value: "+c.getValue());  //puo essere 0 o 1
 	}
 }

@@ -5,9 +5,9 @@ public class TestCounterSafe2 {
 	public static void main(String[] args) throws Exception {
 		int ntimes = 1000000; // Integer.parseInt(args[0]);
 		
-		UnsafeCounter c = new UnsafeCounter(0);
+		UnsafeCounter c = new UnsafeCounter(0); //UNSAFE
 		
-		Worker2 w1 = new Worker2(c,ntimes);
+		Worker2 w1 = new Worker2(c,ntimes);  //USA WORKER CON SYNCRONISED
 		Worker2 w2 = new Worker2(c,ntimes);
 
 		Cron cron = new Cron();

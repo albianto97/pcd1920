@@ -14,6 +14,7 @@ public class Worker extends Thread{
 	public void run(){
 		for (int i = 0; i < ntimes; i++){
 			counter.inc();
+
 		}
 	}
 }

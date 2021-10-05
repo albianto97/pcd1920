@@ -10,6 +10,7 @@ public class UnsafeCounter {
 	
 	public void inc(){
 		cont++;
+		//System.out.println(cont);
 	}
 	
 	public int getValue(){

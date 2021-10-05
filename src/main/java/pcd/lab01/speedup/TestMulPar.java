@@ -36,11 +36,11 @@ public class TestMulPar {
 		System.out.println("Computing matmul...");
 
 
-		int nWorkers =  Runtime.getRuntime().availableProcessors() + 1;
+		int nWorkers =  Runtime.getRuntime().availableProcessors() + 1; //12 + 1 con acer nitro
 		MatMulConcurLib.init(nWorkers);
 				
-		Chrono cron = new Chrono();
-		cron.start();
+		Chrono cron = new Chrono();  //prende solo io tempo
+		cron.start(); //tempo iniziale -> non è un thread
 		Mat matC = MatMulConcurLib.matmul(matA, matB);
 		cron.stop();
 						
