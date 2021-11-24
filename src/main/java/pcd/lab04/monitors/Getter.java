@@ -2,9 +2,9 @@ package pcd.lab04.monitors;
 
 public class Getter extends Worker {
 	
-	private SynchCell cell;
+	private SynchCell2 cell;
 	
-	public Getter(SynchCell cell){
+	public Getter(SynchCell2 cell){
 		super("getter");
 		this.cell = cell;
 	}

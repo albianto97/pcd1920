@@ -9,7 +9,7 @@ public class Main {
     ActorSystem system = ActorSystem.create("MySystem");
     
     ActorRef act = system.actorOf(Props.create(HappyActor.class));
-    act.tell(new HelloMsg("World"), ActorRef.noSender());
+    act.tell(new HelloMsg("World"), ActorRef.noSender()); //senza far sapere chi lo ha inviato
     act.tell("Another msg", ActorRef.noSender());
     
     Thread.sleep(1000);

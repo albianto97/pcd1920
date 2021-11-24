@@ -9,7 +9,7 @@ public class ResManagerImpl implements ResManager {
 	public ResManagerImpl(int nResourcesAvailable) {
 		this.nResourcesAvailable = nResourcesAvailable;
 		nResourcesUsed = 0;
-		resourceFreeMap = new boolean[nResourcesAvailable];
+		resourceFreeMap = new boolean[nResourcesAvailable];  //tutti true
 		for (int i = 0; i < nResourcesAvailable; i++) {
 			resourceFreeMap[i] = true;
 		}
@@ -23,7 +23,7 @@ public class ResManagerImpl implements ResManager {
 		int availRes = getAvailRes();
 		resourceFreeMap[availRes] = false;
 		nResourcesUsed++;
-		return availRes;
+		return availRes;  //ritorna la prima disponibile
 	}
 
 	@Override

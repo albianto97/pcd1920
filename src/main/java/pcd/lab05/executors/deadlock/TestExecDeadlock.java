@@ -12,7 +12,7 @@ public class TestExecDeadlock {
 		int nTasks = 100; 
 		int nThreads = Runtime.getRuntime().availableProcessors() + 1;
 
-		// processori +1 nel mio pc sono 2 + 1
+		// processori +1 nel mio pc sono 12 + 1
 		System.out.println(nThreads);
 		
 		ExecutorService exec = Executors.newFixedThreadPool(nThreads);
@@ -20,8 +20,7 @@ public class TestExecDeadlock {
 				
 		for (int i = 0; i < nTasks; i++) {
 			exec.execute(new MyTask("task-" + i, barrier));
-		}		
-		
+		}
 		exec.shutdown();
 		exec.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);		
 	}

@@ -23,7 +23,7 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 		
 		this.controller = controller;
 		
-		setSize(400, 60);
+		setSize(400, 80);
 		setResizable(false);
 		
 		JButton button1 = new JButton("Event #1");
@@ -60,12 +60,12 @@ class MyView extends JFrame implements ActionListener, ModelObserver {
 	public void modelUpdated(MyModel model) {
 		try {
 			System.out.println("[View] model updated => updating the view");
-			/*
-			SwingUtilities.invokeLater(() -> {
-				state.setText("state: " + model.getState());
+
+			/*SwingUtilities.invokeLater(() -> {
+				state.setText("state: " + model.getState()); //NO DEADLOCK
 			});*/
 			SwingUtilities.invokeAndWait(() -> {
-				state.setText("state: " + model.getState());
+				state.setText("state: " + model.getState()); //DEADLOCK -> AWAIT DI CHI?
 			});
 		} catch (Exception ex){
 			ex.printStackTrace();

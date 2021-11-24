@@ -20,19 +20,25 @@ public class Test4_combine {
 		});
 
 		log("doing combination...");
-		CompletableFuture<String> combinedFuture = resultA
-		        .thenCombine(resultB, (resA, resB) -> {
+		CompletableFuture<String> combinedFuture = resultA.thenCombine(resultB, (resA, resB) -> {
 			log("exec composition at " + System.currentTimeMillis());
+			logSimple("resA "+resA, "resB "+ resB);
 		    return resA + resB;
 		});
 
 		try {
-			log("The result is: " + combinedFuture.get());	
+			log("The result is: " + combinedFuture.get());
+			logSimple("resultA " + resultA, "resultB " + resultB);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
+	private static void logSimple(String A, String B) {
+		System.out.println(A+  "  " + B);
+
+	}
+
 	private static void waitFor(long dt) {
 		try {
 			Thread.sleep(dt);

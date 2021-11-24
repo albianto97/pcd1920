@@ -15,7 +15,7 @@ public class ThreadB extends Thread {
 		Random gen = new Random(System.nanoTime());
 		try {
 			waitFor(gen.nextInt(3000));
-			log("done.");
+			log("done. -> before countDown");
 			latch.countDown();
 			log("after.");
 		} catch (InterruptedException ex) {

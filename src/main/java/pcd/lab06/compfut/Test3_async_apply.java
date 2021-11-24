@@ -14,14 +14,14 @@ public class Test3_async_apply {
 			waitFor(500);
 			log("done.");
 			return 13;
+		}).thenApplyAsync(res -> {  //res è 13
+			log("apply to " + res);
+			waitFor(1000);
+			return res + 1; //res è 14
 		}).thenApplyAsync(res -> {
 			log("apply to " + res);
 			waitFor(1000);
-			return res + 1;
-		}).thenApplyAsync(res -> {
-			log("apply to " + res);
-			waitFor(1000);
-			return res + 1;
+			return res + 1; //res è 15
 		}, executor).thenAccept(res -> {
 			waitFor(1000);
 			log("accept " + res);

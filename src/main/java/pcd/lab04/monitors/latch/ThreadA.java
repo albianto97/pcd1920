@@ -14,7 +14,10 @@ public class ThreadA extends Thread {
 	public void run() {
 		try {
 			log("waiting opening.");
+			//int c = 0;
+			//c = increase(c);
 			latch.await();
+			//c = decrease(c);
 			log("opened."); // 
 		} catch (InterruptedException ex) {
 			log("Interrupted!");
@@ -29,5 +32,16 @@ public class ThreadA extends Thread {
 	
 	private void waitFor(long ms) throws InterruptedException{
 		Thread.sleep(ms);
+	}
+
+	public int increase(int c){
+		c++;
+		System.out.println(c);
+		return c;
+	}
+	public int decrease(int c){
+		c--;
+		System.out.println(c);
+		return c;
 	}
 }

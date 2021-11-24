@@ -6,7 +6,7 @@ public class PingActor extends AbstractActor {
 
 	public void preStart() {
 		  final ActorRef ponger = getContext().actorOf(Props.create(PongActor.class), "ponger");
-		  ponger.tell(new PingMsg(0), getSelf());
+		  ponger.tell(new PingMsg(0), getSelf());  //getSelf è chi lo invia, 0 è quello che passa
 	}
 
 	@Override

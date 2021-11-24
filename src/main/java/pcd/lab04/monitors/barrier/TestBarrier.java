@@ -9,7 +9,7 @@ public class TestBarrier {
 		
 		int nWorkers = 10;
 		
-		Barrier barrier = new BarrierImpl(nWorkers);
+		Barrier barrier = new BarrierImpl(nWorkers); //tutti fermi fino a che non ci sono tutti
 		
 		List<Worker> workers = new ArrayList<Worker>();
 		for (int i = 0; i < nWorkers; i++) {

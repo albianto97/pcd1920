@@ -9,7 +9,7 @@ public class TestGUI {
     model.addObserver(view);    
     view.setVisible(true);
     
-    new MyAgent(model).start();
+    new MyAgent(model).start(); //fa aumentare lo stato
 
   }
   

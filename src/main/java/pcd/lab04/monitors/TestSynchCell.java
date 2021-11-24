@@ -4,7 +4,7 @@ public class TestSynchCell {
 		
 	public static void main(String args[]){
 		
-		SynchCell cell = new SynchCell();
+		SynchCell2 cell = new SynchCell2();
 		new Getter(cell).start();
 		new Getter(cell).start();
 		new Getter(cell).start();

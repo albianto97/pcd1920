@@ -13,6 +13,8 @@ public class Test2_accept {
 			log("step 2.");
 		});
 
+
+		//ESEGUE PRIMA QUESTO DI ALTRI COMPITI
 		// keep main thread alive.
 		log("going to sleep.");
 		waitFor(10000);
