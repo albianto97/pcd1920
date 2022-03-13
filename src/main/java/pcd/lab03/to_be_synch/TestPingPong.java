@@ -15,3 +15,7 @@ public class TestPingPong {
 	}
 
 }
+
+
+//problema che loro non parlano ed eseguono come vogliono.
+//soluzione è mettere semaforo o monitor

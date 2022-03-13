@@ -87,7 +87,7 @@ public class CollisionChecker extends Thread {
 	}
 
 	private void log(String msg) {
-		// System.out.println("[COLLISION CHECKER " + Thread.currentThread().getName() +"] " + msg);
+		//System.out.println("[COLLISION CHECKER " + Thread.currentThread().getName() +"] " + msg);
 	}
 
 }

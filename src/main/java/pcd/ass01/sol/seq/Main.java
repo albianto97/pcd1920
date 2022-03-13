@@ -20,7 +20,7 @@ public class Main {
     	}     	
 
     	SimulationView viewer = null;
-    	// SeqSimulationViewer viewer = new SeqSimulationViewer(620,620);
+    	//SeqSimulationViewer viewer = new SeqSimulationViewer(620,620);
 
         Simulation sim4 = new Simulation(nBodies, nSteps, viewer);
         sim4.execute();
